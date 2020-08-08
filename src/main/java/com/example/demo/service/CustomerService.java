@@ -14,12 +14,6 @@ public class CustomerService {
     }
 
     public Customer save(Customer customer){
-        Address homeAddress = new Address("Bangalore");
-        Address homeAddress2 = new Address("Bangalore1");
-        Address officeAddress = new Address("New Delhi");
-        customer.getAddress().put("home", homeAddress);
-        customer.getAddress().put("home", homeAddress2);
-        customer.getAddress().put("office", officeAddress);
         return this.customerRepository.save(customer);
     }
 

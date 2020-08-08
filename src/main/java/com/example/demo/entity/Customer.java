@@ -1,47 +1,44 @@
 package com.example.demo.entity;
 
-import org.springframework.data.annotation.AccessType;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class Customer {
     @Id
-    private Long id;
-    private String name;
-    private int age;
-
-    private Map<String, Address> address = new HashMap();
+    private  Long id;
+    private  String name;
+    private  int age;
+    private   Address address;
 
     public Customer() {
     }
 
-    public void setId(Long id) {
+    public Customer(Long id, String name, int age, Address address) {
         this.id = id;
-    }
-
-    public Customer(String name, int age) {
         this.name = name;
         this.age = age;
+        this.address = address;
     }
 
-    public Map<String, Address> getAddress() {
-        return address;
+    public Customer withId(Long id){
+        return new Customer(id, this.name, this.age, this.address);
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getAge() {
-        return age;
+        return this.age;
+    }
+
+    public Address getAddress() {
+        return this.address;
     }
 
     @Override
@@ -51,13 +48,12 @@ public class Customer {
         Customer customer = (Customer) o;
         return age == customer.age &&
                 Objects.equals(id, customer.id) &&
-                Objects.equals(name, customer.name);
+                Objects.equals(name, customer.name) &&
+                Objects.equals(address, customer.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, age);
+        return Objects.hash(id, name, age, address);
     }
-
-
 }

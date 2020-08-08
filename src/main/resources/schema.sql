@@ -6,10 +6,9 @@ CREATE TABLE IF NOT EXISTS Customer (
 
 
 CREATE TABLE  IF NOT EXISTS Address (
+    id INTEGER IDENTITY PRIMARY KEY,
     customer INTEGER,
-    customer_key VARCHAR(100),
-    city VARCHAR(100),
-    PRIMARY KEY(customer, customer_key)
+    city VARCHAR(100)
 );
 
 ALTER TABLE Address ADD CONSTRAINT FK_ADDRESS_CUSTOMER FOREIGN KEY (customer) REFERENCES Customer (ID)

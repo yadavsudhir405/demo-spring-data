@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Customer;
 import com.example.demo.service.CustomerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "customers")
@@ -23,7 +20,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Customer save(Customer customer){
+    public Customer save(@RequestBody Customer customer){
         return this.customerService.save(customer);
     }
 }

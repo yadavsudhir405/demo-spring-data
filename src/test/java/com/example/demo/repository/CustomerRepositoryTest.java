@@ -18,17 +18,13 @@ class CustomerRepositoryTest {
 
     @Test
     void testToShowNoLazyLoadingAndCaching() {
-        Customer customer = new Customer("Foo", 23);
+        Customer customer = new Customer(null,"Foo", 23,null);
 
         Customer savedCustomer = this.customerRepository.save(customer);
 
         assertThat(savedCustomer).isNotNull();
-
-        //Clone an entity by setting it's id attribute to null
-        savedCustomer.setId(null);
-        this.customerRepository.save(savedCustomer);
-
-        assertThat(this.customerRepository.count()).isEqualTo(2);
+        assertThat(savedCustomer).isNotSameAs(customer);
+        assertThat(savedCustomer.getAddress()).isNull();
 
         // Everytime ask Repository to find the element, it executes the query and return new object
         Optional<Customer> customer1 = this.customerRepository.findById(savedCustomer.getId());
@@ -39,14 +35,12 @@ class CustomerRepositoryTest {
 
     @Test
     void aggregationTest() {
-        Customer customer = new Customer("Bar", 23);
-
-        Address currentAddress = new Address("Bangalore");
-        customer.getAddress().put("currentAddress", currentAddress);
+        Address address = new Address(null, "Bangalore");
+        Customer customer = new Customer(null,"Bar", 23, address);
 
         Customer savedCustomer = this.customerRepository.save(customer);
-        assertThat(savedCustomer).isNotNull();
-        System.out.println(savedCustomer);
 
+        assertThat(savedCustomer.getId()).isNotNull();
+        assertThat(savedCustomer.getAddress().getId()).isNotNull();
     }
 }
