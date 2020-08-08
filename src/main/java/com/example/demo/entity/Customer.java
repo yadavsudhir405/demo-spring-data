@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
+import org.springframework.data.annotation.AccessType;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.HashMap;
 import java.util.Map;
