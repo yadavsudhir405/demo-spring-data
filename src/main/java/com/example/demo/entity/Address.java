@@ -1,24 +1,19 @@
 package com.example.demo.entity;
 
-import org.springframework.data.annotation.Id;
-
 import java.util.Objects;
 
 public class Address {
-    @Id
-    private  Long id;
     private  String city;
 
     public Address() {
     }
 
-    public Address(Long id, String city) {
-        this.id = id;
+    public Address( String city) {
         this.city = city;
     }
 
-    public Address withId(Long id) {
-        return new Address(id, this.city);
+    public String getCity() {
+        return city;
     }
 
     @Override
@@ -26,20 +21,11 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(id, address.id) &&
-                Objects.equals(city, address.city);
+        return Objects.equals(city, address.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, city);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getCity() {
-        return city;
+        return Objects.hash(city);
     }
 }

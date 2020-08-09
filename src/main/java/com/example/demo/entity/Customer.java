@@ -1,7 +1,12 @@
 package com.example.demo.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Customer {
@@ -9,20 +14,21 @@ public class Customer {
     private  Long id;
     private  String name;
     private  int age;
-    private   Address address;
+
+    private Map<String, Address> addresses = new HashMap<>();
 
     public Customer() {
     }
 
-    public Customer(Long id, String name, int age, Address address) {
+    public Customer(Long id, String name, int age, Map<String, Address> addresses) {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.address = address;
+        this.addresses = addresses;
     }
 
     public Customer withId(Long id){
-        return new Customer(id, this.name, this.age, this.address);
+        return new Customer(id, this.name, this.age, this.addresses);
     }
 
     public Long getId() {
@@ -37,8 +43,8 @@ public class Customer {
         return this.age;
     }
 
-    public Address getAddress() {
-        return this.address;
+    public Map<String, Address> getAddress() {
+        return this.addresses;
     }
 
     @Override
@@ -49,11 +55,11 @@ public class Customer {
         return age == customer.age &&
                 Objects.equals(id, customer.id) &&
                 Objects.equals(name, customer.name) &&
-                Objects.equals(address, customer.address);
+                Objects.equals(addresses, customer.addresses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, age, address);
+        return Objects.hash(id, name, age, addresses);
     }
 }

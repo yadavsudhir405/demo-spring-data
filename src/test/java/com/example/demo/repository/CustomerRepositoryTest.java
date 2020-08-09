@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,12 +37,17 @@ class CustomerRepositoryTest {
 
     @Test
     void aggregationTest() {
-        Address address = new Address(null, "Bangalore");
-        Customer customer = new Customer(null,"Bar", 23, address);
+        Address homeAddress = new Address( "Bangalore");
+        Address officeAddress = new Address( "New Delhi");
+        Map<String, Address> addressMap = new HashMap<>();
+        addressMap.put("home",homeAddress);
+        addressMap.put("office",officeAddress);
+        Customer customer = new Customer(null,"Bar", 23, addressMap);
 
         Customer savedCustomer = this.customerRepository.save(customer);
 
         assertThat(savedCustomer.getId()).isNotNull();
-        assertThat(savedCustomer.getAddress().getId()).isNotNull();
+        assertThat(savedCustomer.getAddress().get("home").getCity()).isNotNull();
+        assertThat(savedCustomer.getAddress().get("office").getCity()).isNotNull();
     }
 }
