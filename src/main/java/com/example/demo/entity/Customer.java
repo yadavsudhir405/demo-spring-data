@@ -15,7 +15,7 @@ public class Customer {
     private  String name;
     private  int age;
 
-    @MappedCollection(idColumn = "customer_id")
+    @MappedCollection(idColumn = "CUSTOMER_ID")
     private Set<Address> addresses = new HashSet<>();
 
     public Customer() {
