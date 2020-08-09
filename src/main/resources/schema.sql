@@ -1,14 +1,13 @@
 CREATE TABLE IF NOT EXISTS Customer (
-    id INTEGER IDENTITY PRIMARY KEY,
+    customer_id INTEGER IDENTITY PRIMARY KEY,
     name VARCHAR(100),
     age INTEGER not null
     );
 
 
 CREATE TABLE  IF NOT EXISTS Address (
-    customer INTEGER,
-    customer_key VARCHAR(100),
+    customer_id INTEGER,
     city VARCHAR(100)
 );
 
-ALTER TABLE Address ADD CONSTRAINT FK_ADDRESS_CUSTOMER FOREIGN KEY (customer) REFERENCES Customer (id)
+ALTER TABLE Address ADD CONSTRAINT FK_ADDRESS_CUSTOMER FOREIGN KEY (customer_id) REFERENCES Customer (customer_id)

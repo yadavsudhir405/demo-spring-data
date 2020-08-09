@@ -3,24 +3,25 @@ package com.example.demo.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
-import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Customer {
     @Id
+    @Column("customer_id")
     private  Long id;
     private  String name;
     private  int age;
 
-    private Map<String, Address> addresses = new HashMap<>();
+    @MappedCollection(idColumn = "customer_id")
+    private Set<Address> addresses = new HashSet<>();
 
     public Customer() {
     }
 
-    public Customer(Long id, String name, int age, Map<String, Address> addresses) {
+    public Customer(Long id, String name, int age, Set<Address> addresses) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -43,7 +44,7 @@ public class Customer {
         return this.age;
     }
 
-    public Map<String, Address> getAddress() {
+    public Set<Address> getAddress() {
         return this.addresses;
     }
 
